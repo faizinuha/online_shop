@@ -19,7 +19,7 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
             LEFT JOIN categories ON products.category_id = categories.id 
             JOIN users ON products.user_id = users.id
             ORDER BY products.created_at DESC
-            LIMIT $limit OFFSET $offset");  
+            LIMIT $limit OFFSET $offset");
 ?>
 
 
@@ -63,26 +63,26 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
                                 <p>Rp. <?= Rp($product['price']) ?></p>
                             </div>
 
-                            <p>By 
-                            <a href="profile.php?id=<?= $product['user_id'] ?>"><?= $product['user_name'] ?></a> in 
+                            <p>By
+                                <a href="profile.php?id=<?= $product['user_id'] ?>"><?= $product['user_name'] ?></a> in
 
-                            <a href="category.php?id=<?= $product['category_id'] ?>"> <?= $product['category_name'] ?> </a> 
+                                <a href="category.php?id=<?= $product['category_id'] ?>"> <?= $product['category_name'] ?> </a>
 
-                            <?= time_elapsed_string($product['created_at']) ?>
+                                <?= time_elapsed_string($product['created_at']) ?>
                             </p>
 
                             <p><?= $product['excerpt'] ?></p>
-                            <?php
-                            if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin' && $user_id == $product['user_id']) :
-                            ?>
-                                <div class="row ml-2" style="display: flex; gap: 13px">
+                            <div class="row ml-2" style="display: flex; gap: 13px">
+                                <?php
+                                if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin' && $user_id == $product['user_id']) :
+                                ?>
                                     <a href="destroy_product.php?id=<?= $product['id'] ?>" class="btn btn-danger" onclick="return confirm('Are You sure?')"><i class="fas fa-trash"></i></a>
                                     <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn btn-warning"><i class="fas fa-pen"></i></a>
-                                    <a href="" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                </div>
-                            <?php
-                            endif;
-                            ?>
+                                <?php
+                                endif;
+                                ?>
+                                <a href="" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                            </div>
                             <?php
                             if (isset($_SESSION['role']) && $_SESSION['role'] === 'customer' && $product['stock'] === 'available') :
                             ?>

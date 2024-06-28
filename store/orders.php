@@ -71,12 +71,14 @@ $orders = mysqli_query($koneksi, "SELECT orders.*, products.name AS product_name
                                                     <?php
                                                     if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                                                     ?>
-                                                        <a href="approve_order.php?id=<?= $order['id'] ?>" class="btn btn-success">
+                                                        <a class="btn btn-success text-white" data-confirm="Realy?|Do you want to approved?" data-confirm-yes="window.location.href='approve_order.php?id=<?= $order['id'] ?>'">
                                                             <i class="fas fa-fw fa-check"></i>
                                                         </a>
-                                                        <a href="cancel_order.php?id=<?= $order['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+
+                                                        <a class="btn btn-danger text-white" data-confirm="Realy?|Do you want to cancelled?" data-confirm-yes="window.location.href='cancel_order.php?id=<?= $order['id'] ?>'">
                                                             <i class="fas fa-fw fa-times"></i>
                                                         </a>
+                                                        
                                                     <?php
                                                     }
                                                     ?>

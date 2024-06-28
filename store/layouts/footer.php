@@ -10,7 +10,6 @@
             </footer>
             </div>
             </div>
-
             <!-- General JS Scripts -->
             <script src="assets/modules/jquery.min.js"></script>
             <script src="assets/modules/popper.js"></script>
@@ -27,9 +26,6 @@
             <script src="assets/modules/summernote/summernote-bs4.js"></script>
             <script src="assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
             <script src="assets/modules/izitoast/js/iziToast.min.js"></script>
-            <!-- Include jQuery (required for Toastr) -->
-
-            <!-- Include Toastr JS -->
 
 
             <script src="assets/modules/datatables/datatables.min.js"></script>

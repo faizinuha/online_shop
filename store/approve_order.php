@@ -5,7 +5,8 @@ require_once __DIR__ . '/../config/koneksi.php';
 $user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['role']) && $_SESSION['role'] !== 'admin') {
-    echo '<script>alert("You do not have permission to access this page."); window.location.href="index.php";</script>';
+    $_SESSION['error'] = 'You do not have permission to access this page.';
+    echo '<script>window.location.href="index.php";</script>';
     exit();
 }
 
@@ -18,14 +19,16 @@ if (isset($_GET['id'])) {
                                             WHERE orders.id = $order_id");
 
     if (!$order_query || mysqli_num_rows($order_query) == 0) {
-        echo '<script>alert("Invalid Order!"); window.location.href="orders.php";</script>';
+        $_SESSION['error'] = 'Invalid order.';
+        echo '<script>window.location.href="orders.php";</script>';
         exit();
     }
 
     $order = mysqli_fetch_assoc($order_query);
 
     if ($order['product_user_id'] != $user_id) {
-        echo '<script>alert("You do not have permission to access this page."); window.location.href="orders.php";</script>';
+        $_SESSION['error'] = 'You do not have permission to access this page.';
+        echo '<script>window.location.href="orders.php";</script>';
         exit();
     }
 
@@ -33,11 +36,14 @@ if (isset($_GET['id'])) {
 
 
     if ($update) {
-        echo '<script>alert("Order approved successfully!"); window.location.href="orders.php";</script>';
+        $_SESSION['success'] = 'Order approved successfully!';
+        echo '<script>window.location.href="orders.php";</script>';
     } else {
-        echo '<script>alert("Failed to approve order. Please try again."); window.location.href="orders.php";</script>';
+        $_SESSION['error'] = 'Failed to approve order. Please try again.';
+        echo '<script>window.location.href="orders.php";</script>';
     }
 } else {
-    echo '<script>alert("Invalid order."); window.location.href="orders.php";</script>';
+    $_SESSION['error'] = 'Invalid order.';
+    echo '<script>window.location.href="orders.php";</script>';
     exit();
 }
