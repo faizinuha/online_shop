@@ -7,7 +7,6 @@ $user_id = $_SESSION['user_id'];
 $orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
                                     orders.created_at AS order_date,
                                     orders.status AS order_status,
-                                    products.id AS product_id,
                                     products.name AS product_name,
                                     products.price AS product_price,
                                     order_details.quantity AS product_quantity,
@@ -78,7 +77,7 @@ $orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
                                                     <?php
                                                     if (isset($_SESSION['role']) && $_SESSION['role'] === 'customer') {
                                                     ?>
-                                                        <a class="btn btn-warning text-white" href='edit_my-order.php?id=<?= $order['product_id'] ?>'>
+                                                        <a class="btn btn-warning text-white" href='edit_my-order.php?id=<?= $order['order_id'] ?>'>
                                                             <i class="fas fa-fw fa-pen"></i>
                                                         </a>
 

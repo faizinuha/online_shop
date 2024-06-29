@@ -26,10 +26,16 @@ if (isset($_POST['submit'])) {
     $quantity = intval($_POST['quantity']);
     $total_price = $quantity * floatval($product['price']);
 
+    if ($quantity <= 0) {
+        $_SESSION['error'] = 'Invalid order.';
+        echo '<script>window.location.href="order_product.php?id='. $product_id .'"</script>';
+        exit();
+    }
+
     if ($total_price > 99999999.99) {
         $_SESSION['error'] = 'Total order melebihi batas.';
         echo '<script>window.location.href="order_product.php?id='. $product_id .'"</script>';
-
+        exit();
     }
 
     $query = mysqli_query($koneksi, "INSERT INTO orders (user_id, product_id, quantity, total_price) VALUES ('$user_id', '$product_id', '$quantity', '$total_price') ");
@@ -40,16 +46,18 @@ if (isset($_POST['submit'])) {
         $order_detail = mysqli_query($koneksi, "INSERT INTO order_details (order_id, product_id, quantity) VALUES ('$order_id', '$product_id', '$quantity') ");
 
         if ($order_detail) {
-
             $_SESSION['success'] = 'Order placed successfully!';
             echo '<script>window.location.href="products.php"</script>';
-        } else {
+            exit();
+        } else {    
             $_SESSION['error'] = 'Failed to place order. Please try again.';
             echo '<script>window.location.href="order_product.php?id=' . $product_id . '"</script>';
+            exit();
         }
     } else {
         $_SESSION['error'] = 'Failed to place order. Please try again.';
         echo '<script>window.location.href="order_product.php?id=' . $product_id . '"</script>';
+        exit();
     }
 }
 
