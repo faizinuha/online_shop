@@ -42,6 +42,9 @@ function time_elapsed_string($datetime, $full = false)
 }
 
 function Rp($number) {
-    return number_format($number, 3, '.', '.');
+    if (!is_null($number)) {
+        return number_format($number, 3, '.', '.');
+    }
+    return "0.000 IDR";
 }
 

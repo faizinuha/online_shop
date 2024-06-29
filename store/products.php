@@ -78,10 +78,10 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
                                 ?>
                                     <a href="destroy_product.php?id=<?= $product['id'] ?>" class="btn btn-danger" onclick="return confirm('Are You sure?')"><i class="fas fa-trash"></i></a>
                                     <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                    <a href="" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                 <?php
                                 endif;
                                 ?>
-                                <a href="" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                             </div>
                             <?php
                             if (isset($_SESSION['role']) && $_SESSION['role'] === 'customer' && $product['stock'] === 'available') :

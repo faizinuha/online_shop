@@ -166,10 +166,17 @@ include('../function/function.php');
                                 </a>
                             </li>
 
-
                         <?php
                         endif;
                         ?>
+                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'customer'):  ?>
+                        <li class="nav-item <?= $title == 'My Orders' ? 'active' : '' ?>">
+                            <a href="./my_orders.php" class="nav-link">
+                                <i class="fas fa-archive"></i>
+                                <span>My Orders</span>
+                            </a>
+                        </li>
+                        <?php endif; ?>
                     </ul>
 
                 </aside>

@@ -11,9 +11,8 @@ $total_sales = mysqli_query($koneksi, "SELECT SUM(total_price) AS total_sales FR
 
 $customer_count = mysqli_fetch_assoc($customers)['customer_count'];
 $sales_count = mysqli_fetch_assoc($orders_sales)['order_sales'];
-$total_price = mysqli_fetch_assoc($total_sales)['total_sales'];
 
-
+$total_price = mysqli_fetch_assoc($total_sales)['total_sales'] ?? 0;
 
 if ($products) {
     $product_count = mysqli_fetch_assoc($products)['products_count'];
