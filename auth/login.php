@@ -38,10 +38,13 @@ if (isset($_POST['submit'])) {
                 header('Location: ../store/index.php');
                 exit();
             } else {
-                $_SESSION['error'] = 'Email atu password Anda salah.';
+                // $_SESSION['error'] = 'Email atu password Anda salah.';
+                echo("<script>alert('Email atau password Anda salah.')</script>");
+                
             }
         } else {
-            $_SESSION['error'] = 'Email atu password Anda salah.';
+            echo("<script>alert('Email atau password Anda salah.')</script>");
+            // $_SESSION['error'] = 'Email atu password Anda salah.';
         }
         
         $stmt->close();
@@ -91,6 +94,9 @@ if (isset($_POST['submit'])) {
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="register.php">Create an Account!</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="../index.php">Back to Home!</a>
                             </div>
                         </div>
                     </div>

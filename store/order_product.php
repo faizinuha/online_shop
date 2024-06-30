@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
-    if ($total_price > 99999999.99) {
+    if ($total_price > 2147483647) {
         $_SESSION['error'] = 'Total order melebihi batas.';
         echo '<script>window.location.href="order_product.php?id='. $product_id .'"</script>';
         exit();

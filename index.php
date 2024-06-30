@@ -33,7 +33,7 @@
 
         <div class="inner cover">
           <h1 class="cover-heading">Online Shop.</h1>
-          <p class="lead">Responsive e-book store website. Featuring a multi-role login system, intuitive shopping, and streamlined checkout process, this project showcases a complete online bookstore experience. Developed with HTML, CSS, JavaScript, PHP, and MySQLi..</p>
+          <p class="lead">Responsive store website. Featuring a multi-role login system, intuitive shopping, and a streamlined checkout process, this project showcases a complete online shopping experience. Developed with HTML, CSS, JavaScript, PHP, and MySQLi.</p>
           <p class="lead">
             <a href="store/index.php" class="btn btn-lg btn-default">Go Store</a>
           </p>

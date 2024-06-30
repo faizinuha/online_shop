@@ -12,13 +12,14 @@ $categories = mysqli_query($koneksi, "SELECT * FROM categories");
 
 $user_id = $_SESSION['user_id'];
 
+$errors = [];
+$old = [];
 
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = ['name', 'price', 'stock', 'body', 'category_id'];
 
     $ext = ['jpg', 'jpeg', 'png'];
 
-    $errors = [];
 
     foreach ($input as $value) {
         if (empty($_POST[$value])) {
@@ -28,6 +29,11 @@ if (isset($_POST['submit'])) {
 
     if (!is_numeric($_POST['price'])) {
         $errors['price'] = 'Prices must be numbers.';
+    }
+
+    if (!empty($errors)) {
+        $_SESSION['old'] = $_POST;
+        $_SESSION['errors'] = $errors;
     }
 
     if (empty($_FILES['image']['name'])) {
@@ -72,6 +78,16 @@ if (isset($_POST['submit'])) {
     }
 }
 
+if (isset($_SESSION['old'])) {
+    $old = $_SESSION['old'];
+    unset($_SESSION['old']);
+}
+
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
+}
+
 ?>
 
 <div class="card mb-3">
@@ -83,7 +99,7 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="col-5 ms-5 mb-3">
                     <label for="name" class="form-label">Product Name</label>
-                    <input type="text" name="name" id="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>">
+                    <input type="text" name="name" id="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" value="<?= isset($old['name']) ? $old['name'] : '' ?>">
 
                     <div class="invalid-feedback">
                         <?= $errors['name'] ?>
@@ -91,7 +107,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-5 ms-5 mb-3">
                     <label for="price" class="form-label">Product Price</label>
-                    <input type="number" name="price" id="price" class="form-control <?= isset($errors['price']) ? 'is-invalid' : '' ?>">
+                    <input type="number" name="price" id="price" class="form-control <?= isset($errors['price']) ? 'is-invalid' : '' ?>" value="<?= isset($old['price']) ? $old['name'] : '' ?>">
 
                     <div class="invalid-feedback">
                         <?= $errors['price'] ?>
@@ -110,7 +126,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-5">
                     <label for="body" class="form-label">Description Product</label>
-                    <textarea name="body" id="body" rows="3" class="form-control <?= isset($errors['body']) ? 'is-invalid' : '' ?>"></textarea>
+                    <textarea name="body" id="body" rows="3" class="form-control <?= isset($errors['body']) ? 'is-invalid' : '' ?>"><?= isset($old['body']) ? $old['body'] : '' ?></textarea>
 
                     <div class="invalid-feedback">
                         <?= $errors['body'] ?>
@@ -129,10 +145,10 @@ if (isset($_POST['submit'])) {
 
                             <label class="custom-file-label" for="image">Choose file</label>
                         </div>
-                            
-                            <div class="invalid-feedback">
-                                <?= $errors['image'] ?>
-                            </div>
+
+                        <div class="invalid-feedback">
+                            <?= $errors['image'] ?>
+                        </div>
                     </div>
 
                     <label class="form-label">Image Preview</label>

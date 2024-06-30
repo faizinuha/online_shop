@@ -1,10 +1,20 @@
-<?php 
+<?php
 session_start();
 require_once __DIR__ . '/../../config/koneksi.php';
 
 if (isset($_SESSION['username'])) {
     header('Location: ../main/index.php');
     exit();
+}
+
+if (isset($_SESSION['success'])) {
+    $success_message = $_SESSION['success'];
+    unset($_SESSION['success']);
+}
+
+if (isset($_SESSION['error'])) {
+    $error_message = $_SESSION['error'];
+    unset($_SESSION['error']);
 }
 ?>
 
@@ -44,4 +54,3 @@ if (isset($_SESSION['username'])) {
 
 <body>
     <div id="app">
-        

@@ -124,7 +124,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-5 ms-5 mb-3">
                     <label for="price" class="form-label">Product Price</label>
-                <input type="number" name="price" id="price" class="form-control <?= isset($errors['price']) ? 'is-invalid' : '' ?>" value="<?= Rp($product['price']) ?>">
+                <input type="number" name="price" id="price" class="form-control <?= isset($errors['price']) ? 'is-invalid' : '' ?>" value="<?= $product['price'] ?>">
 
                     <div class="invalid-feedback">
                         <?= $errors['price'] ?>

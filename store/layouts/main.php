@@ -8,6 +8,24 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+// Fungsi untuk memeriksa status pengguna
+function checkUserStatus() {
+    global $koneksi;
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $query = mysqli_query($koneksi, "SELECT * FROM users WHERE id = '$user_id'");
+
+        if (mysqli_num_rows($query) == 0) {
+            session_destroy();
+            echo '<script>window.location.href="../auth/login.php"</script>';
+            exit();
+        }
+    }
+}
+
+checkUserStatus();
+
+
 if (isset($_SESSION['success'])) {
     $success_message = $_SESSION['success'];
     unset($_SESSION['success']);
