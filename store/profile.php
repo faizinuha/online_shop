@@ -2,8 +2,16 @@
 $title = 'Profile';
 require_once __DIR__ . '/layouts/main.php';
 
+$user_id = $_SESSION['user_id'];
+
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+
+    $result = mysqli_query($koneksi, "SELECT COUNT(*) AS count FROM products WHERE user_id = '$user_id'");
+
+    $row = mysqli_fetch_assoc($result);
+    $products = $row['count'];
 
     $query = mysqli_query($koneksi, "SELECT * FROM users WHERE id = '$id'");
     $user = mysqli_fetch_assoc($query);
@@ -63,11 +71,16 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="section-body">
         <h2 class="section-title">Hi, <?= htmlspecialchars($user['username']) ?>!</h2>
-        <?php if ($user['username'] === $_SESSION['username']) : ?>
-        <p class="section-lead">
-            Change information about yourself on this page.
-        </p>
+
+        <?php
+        if ($user['username'] === $_SESSION['username']) :
+        ?>
+            <p class="section-lead">
+                Change information about yourself on this page.
+            </p>
+
         <?php endif; ?>
+
 
         <div class="row mt-sm-4">
             <div class="col-12 col-md-12 col-lg-5">
@@ -75,14 +88,20 @@ if (isset($_POST['submit'])) {
                     <div class="profile-widget-header">
                         <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
                         <div class="profile-widget-items">
-                            <div class="profile-widget-item">
-                                <div class="profile-widget-item-label">Products</div>
-                                <div class="profile-widget-item-value">187</div>
-                            </div>
+                            <?php if (isset($user_id)) : ?>
+                                <div class="profile-widget-item">
+                                    <?php
+                                    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') :
+                                    ?>
+                                        <div class="profile-widget-item-label">Products</div>
+                                        <div class="profile-widget-item-value"><?= $products ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="profile-widget-description">
-                        <div class="profile-widget-name"><?= $user['firstname'] ?> <?= $user['lastname'] ?> 
+                        <div class="profile-widget-name"><?= $user['firstname'] ?> <?= $user['lastname'] ?>
                             <div class="text-muted d-inline font-weight-normal">
                                 <div class="slash"></div> <?= htmlspecialchars($user['role']) ?>
                             </div>
@@ -90,19 +109,19 @@ if (isset($_POST['submit'])) {
                         <?= $user['bio'] ?>
                     </div>
                 </div>
-                
+
             </div>
             <div class="col-12 col-md-12 col-lg-7">
                 <div class="card">
-                    <form method="post" action="" class="needs-validation" novalidate="" >
+                    <form method="post" action="" class="needs-validation" novalidate="">
                         <div class="card-header">
                             <h4><?= $user['username'] !== $_SESSION['username'] ? 'User Profile' : 'Edit Profile' ?></h4>
                         </div>
                         <div class="card-body">
-                            <?php if (!empty($errors)): ?>
+                            <?php if (!empty($errors)) : ?>
                                 <div class="alert alert-danger">
                                     <ul>
-                                        <?php foreach ($errors as $error): ?>
+                                        <?php foreach ($errors as $error) : ?>
                                             <li><?= htmlspecialchars($error) ?></li>
                                         <?php endforeach; ?>
                                     </ul>
@@ -111,7 +130,7 @@ if (isset($_POST['submit'])) {
                             <div class="row">
                                 <div class="form-group col-md-6 col-12">
                                     <label>First Name</label>
-                                    <input type="text" name="firstname" class="form-control" value="<?= $user['firstname'] ?>" required="" <?= $_SESSION['username'] !== $user['username'] ? 'disabled' : '' ?> >
+                                    <input type="text" name="firstname" class="form-control" value="<?= $user['firstname'] ?>" required="" <?= $_SESSION['username'] !== $user['username'] ? 'disabled' : '' ?>>
 
                                     <div class="invalid-feedback">
                                         Please fill in the first name
@@ -128,7 +147,7 @@ if (isset($_POST['submit'])) {
                             <div class="row">
                                 <div class="form-group col-md-7 col-12">
                                     <label>Email</label>
-                                    <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required="" <?= $user['username'] !== $_SESSION['username'] ? 'disabled' : '' ?> >
+                                    <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required="" <?= $user['username'] !== $_SESSION['username'] ? 'disabled' : '' ?>>
                                     <div class="invalid-feedback">
                                         Please fill in the email
                                     </div>
@@ -151,20 +170,20 @@ if (isset($_POST['submit'])) {
                                 </div>
                             </div>
                             <?php if ($user['username'] === $_SESSION['username']) : ?>
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    <label>Bio</label>
-                                    <textarea class="form-control summernote-simple" name="bio" required=""><?= $user['bio'] ?></textarea>
-                                    <div class="invalid-feedback">
-                                        Please fill in the bio
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Bio</label>
+                                        <textarea class="form-control summernote-simple" name="bio" required=""><?= $user['bio'] ?></textarea>
+                                        <div class="invalid-feedback">
+                                            Please fill in the bio
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         <div class="card-footer text-right">
                             <button type="submit" name="submit" class="btn btn-primary">Save Changes</button>
                         </div>
-                        <?php endif; ?>
+                    <?php endif; ?>
                     </form>
                 </div>
             </div>

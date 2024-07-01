@@ -60,21 +60,21 @@ $users = mysqli_query($koneksi, "SELECT * FROM users WHERE role = '$role'");
                                             </td>
                                             <td width="20%">
                                                 <div class="row justify-content-center" style="display: flex; gap: 14px">
-                                                <a href="profile.php?id=<?= $user['id'] ?>" class="btn btn-primary">
-                                                    <i class="fas fa-fw fa-eye"></i>
-                                                </a>
-                                                <?php
-                                                if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-                                                ?>
-                                                    <a href="edit_customer.php?id=<?= $user['id'] ?>" class="btn btn-warning">
-                                                        <i class="fas fa-fw fa-pen"></i>
+                                                    <a href="profile.php?id=<?= $user['id'] ?>" class="btn btn-primary">
+                                                        <i class="fas fa-fw fa-eye"></i>
                                                     </a>
-                                                    <a href="destroy_customer.php?id=<?= $user['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">
-                                                        <i class="fas fa-fw fa-trash"></i>
-                                                    </a>
-                                                <?php
-                                                }
-                                                ?>
+                                                    <?php
+                                                    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+                                                    ?>
+                                                        <a href="edit_customer.php?id=<?= $user['id'] ?>" class="btn btn-warning">
+                                                            <i class="fas fa-fw fa-pen"></i>
+                                                        </a>
+                                                        <a data-confirm="Realy?|Do you want to continue?" data-confirm-yes="window.location.href='destroy_customer.php?id=<?= $user['id'] ?>'" class="btn btn-danger text-white">
+                                                            <i class="fas fa-fw fa-trash"></i>
+                                                        </a>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </td>
                                         </tr>

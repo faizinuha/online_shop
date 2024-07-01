@@ -64,7 +64,8 @@ $categories = mysqli_query($koneksi, "SELECT c.*, COUNT(p.id) as total_product
                                                         <a href="edit_category.php?id=<?= $category['id'] ?>" class="btn btn-warning">
                                                             <i class="fas fa-fw fa-pen"></i>
                                                         </a>
-                                                        <a href="destroy_category.php?id=<?= $category['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                                                        <a data-confirm="Realy?|Do you want to continue?" data-confirm-yes="window.location.href='destroy_category.php?id=<?= $category['id'] ?>'" class="btn btn-danger text-white">
+
                                                             <i class="fas fa-fw fa-trash"></i>
                                                         </a>
                                                     <?php

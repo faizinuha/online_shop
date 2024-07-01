@@ -76,9 +76,15 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
                                 <?php
                                 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin' && $user_id == $product['user_id']) :
                                 ?>
-                                    <a href="destroy_product.php?id=<?= $product['id'] ?>" class="btn btn-danger" onclick="return confirm('Are You sure?')"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-danger text-white" data-confirm="Realy?|Do you want to continue?" data-confirm-yes="window.location.href='destroy_product.php?id=<?= $product['id'] ?>'">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+
                                     <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+
                                     <a href="category.php?id=<?= $product['category_id'] ?>" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+
+                                    
                                 <?php
                                 endif;
                                 ?>
