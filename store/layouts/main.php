@@ -208,7 +208,7 @@ include('../function/function.php');
                         <?php if (!empty($success_message)) : ?>
                             <div class="alert alert-success alert-dismissible show fade">
                                 <div class="alert-body">
-                                    <button class="close" data-dismiss="alert">
+                                    <button class="close text-white" data-dismiss="alert">
                                         <span>&times;</span>
                                     </button>
                                     <?= $success_message ?>
@@ -219,7 +219,7 @@ include('../function/function.php');
                         <?php if (!empty($error_message)) : ?>
                             <div class="alert alert-danger alert-dismissible show fade">
                                 <div class="alert-body">
-                                    <button class="close" data-dismiss="alert">
+                                    <button class="close text-center" data-dismiss="alert">
                                         <span>&times;</span>
                                     </button>
                                     <?= $error_message ?>

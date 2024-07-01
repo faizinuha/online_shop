@@ -24,7 +24,7 @@
             <nav>
               <ul class="nav masthead-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
+                <li><a href="store/index.php">Store</a></li>
                 <li><a href="#">Contact</a></li>
               </ul>
             </nav>

@@ -1,12 +1,24 @@
 <?php 
+
+$user_id = $_SESSION['user_id'];
+
 $products = mysqli_query($koneksi, "SELECT COUNT(*) AS products_count FROM products");
 $categories = mysqli_query($koneksi, "SELECT COUNT(*) AS categories_count FROM categories");
 $customers = mysqli_query($koneksi, "SELECT COUNT(*) AS customer_count FROM users WHERE role = 'customer'");
 
-$orders = mysqli_query($koneksi, "SELECT COUNT(*) AS order_count FROM orders");
+$orders = mysqli_query($koneksi, "SELECT COUNT(*) AS order_count FROM orders
+                            JOIN products ON orders.product_id = products.id
+                            WHERE products.user_id = '$user_id'");
 
-$orders_sales = mysqli_query($koneksi, "SELECT COUNT(*) AS order_sales FROM orders WHERE status = 'completed'");
-$total_sales = mysqli_query($koneksi, "SELECT SUM(total_price) AS total_sales FROM orders WHERE status = 'completed'");
+$orders_sales = mysqli_query($koneksi, "SELECT COUNT(*) AS order_sales FROM orders 
+                            JOIN products ON orders.product_id = products.id
+                            WHERE status = 'completed' AND products.user_id = '$user_id'");
+
+
+$total_sales = mysqli_query($koneksi, "SELECT SUM(total_price) AS total_sales FROM orders
+                            JOIN products ON orders.product_id = products.id 
+                            WHERE status = 'completed' AND products.user_id = '$user_id'");
+
 
 
 $customer_count = mysqli_fetch_assoc($customers)['customer_count'];

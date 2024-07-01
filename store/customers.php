@@ -7,7 +7,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] !== 'admin') {
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+
 $role = 'customer';
+
+
 $users = mysqli_query($koneksi, "SELECT * FROM users WHERE role = '$role'");
 
 ?>

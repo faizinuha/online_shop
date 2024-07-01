@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
 
         if ($order_detail) {
             $_SESSION['success'] = 'Order placed successfully!';
-            echo '<script>window.location.href="products.php"</script>';
+            echo '<script>window.location.href="my_orders.php"</script>';
             exit();
         } else {    
             $_SESSION['error'] = 'Failed to place order. Please try again.';

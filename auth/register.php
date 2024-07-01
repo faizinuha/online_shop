@@ -64,10 +64,8 @@ if (isset($_POST['submit'])) {
 
 
         if (mysqli_query($koneksi, $query)) {
-            // header('Location: login.php');
+            header('Location: login.php');
                 
-            echo '<script>window.location.href="../store/index.php"</script>';
-
             $_SESSION['success'] = 'Registrasi berhasil! Silahkan login.';
             exit();
         } else {
