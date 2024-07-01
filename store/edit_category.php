@@ -1,6 +1,6 @@
 <?php
 $title = 'Edit Category';
-require_once __DIR__ . '/layouts/main.php'; 
+require_once __DIR__ . '/layouts/main.php';
 
 if (isset($_SESSION['role']) && $_SESSION['role'] !== 'admin') {
     $_SESSION['error'] = 'You do not have permission to access this page.';
@@ -15,14 +15,13 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     $query = mysqli_query($koneksi, "SELECT * FROM categories WHERE id = '$id'");
-    
-    $category = mysqli_fetch_assoc($query);
 
-    
+    $category = mysqli_fetch_assoc($query);
 }
 
 if (isset($_POST['submit'])) {
-    $name = 'name';
+    $name = $_POST['name'];
+
 
     if (empty($name)) {
         $errors[$name] = $name . ' harus diisi.';
@@ -43,23 +42,28 @@ if (isset($_POST['submit'])) {
 ?>
 
 
-    <div class="card mb-3">
-        <div class="card-header">
-            <h1>Edit Category</h1>
-        </div>
-        <div class="card-body">
-            <form action="" method="POST">
-                <div class="row">
-                    <div class="col-5 ms-5 mb-3">
-                        <label for="name" class="form-label">Category Name</label>
-                        <input type="text" name="name" id="name" class="form-control" value="<?= $category['name'] ?>">
-                    </div>
-                </div>
-                <a href="categories.php" class="btn btn-danger">Back</a>
-                <button type="submit" name="submit" class="btn btn-primary">Edit</button>
-            </form>
-        </div>
+<div class="card mb-3">
+    <div class="card-header">
+        <h1>Edit Category</h1>
     </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            <div class="row">
+                <div class="col-5 ms-5 mb-3">
+                    <label for="name" class="form-label">Category Name</label>
+                    <input type="text" name="name" id="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" value="<?= $category['name'] ?>">
+
+                    <div class="invalid-feedback">
+                        <?= $errors['name'] ?>
+                    </div>
+                    
+                </div>
+            </div>
+            <a href="categories.php" class="btn btn-danger">Back</a>
+            <button type="submit" name="submit" class="btn btn-primary">Edit</button>
+        </form>
+    </div>
+</div>
 
 
 

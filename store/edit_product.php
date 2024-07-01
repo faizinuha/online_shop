@@ -48,6 +48,11 @@ if (isset($_POST['submit'])) {
         }
     }
 
+    if ($_POST['price'] <= 0) {
+        $errors['price'] = 'Invalid Price Product.';
+
+    }
+
     if (!is_numeric($_POST['price'])) {
         $errors['price'] = 'Prices must be numbers.';
     }

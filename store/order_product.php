@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $product = mysqli_fetch_assoc($query);
 
 
-    if (!$query) {
+    if (mysqli_num_rows($query) === 0) {
         $_SESSION['error'] = 'Product not found.';
         echo '<script>window.location.href="products.php"</script>';
         exit();
@@ -28,13 +28,13 @@ if (isset($_POST['submit'])) {
 
     if ($quantity <= 0) {
         $_SESSION['error'] = 'Invalid order.';
-        echo '<script>window.location.href="order_product.php?id='. $product_id .'"</script>';
+        echo '<script>window.location.href="order_product.php?id=' . $product_id . '"</script>';
         exit();
     }
 
     if ($total_price > 2147483647) {
         $_SESSION['error'] = 'Total order melebihi batas.';
-        echo '<script>window.location.href="order_product.php?id='. $product_id .'"</script>';
+        echo '<script>window.location.href="order_product.php?id=' . $product_id . '"</script>';
         exit();
     }
 
@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['success'] = 'Order placed successfully!';
             echo '<script>window.location.href="my_orders.php"</script>';
             exit();
-        } else {    
+        } else {
             $_SESSION['error'] = 'Failed to place order. Please try again.';
             echo '<script>window.location.href="order_product.php?id=' . $product_id . '"</script>';
             exit();

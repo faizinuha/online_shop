@@ -30,6 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_numeric($_POST['price'])) {
         $errors['price'] = 'Prices must be numbers.';
     }
+    
+    if ($_POST['price'] <= 0) {
+        $errors['price'] = 'Invalid Price Product.';
+
+    }
 
     if (!empty($errors)) {
         $_SESSION['old'] = $_POST;

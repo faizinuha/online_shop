@@ -212,7 +212,7 @@ include('../function/function.php');
                                         <span>&times;</span>
                                     </button>
                                     <?= $success_message ?>
-                                </div>
+                                </div> 
                             </div>
                         <?php endif; ?>
 
