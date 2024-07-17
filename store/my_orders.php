@@ -4,22 +4,24 @@ require_once __DIR__ . '/layouts/main.php';
 
 $user_id = $_SESSION['user_id'];
 
-$orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
+$query = mysqli_query($koneksi, "SELECT orders.id AS order_id,
                                     orders.created_at AS order_date,
                                     orders.status AS order_status,
                                     products.name AS product_name,
                                     products.price AS product_price,
-                                    order_details.quantity AS product_quantity,
-                                    (order_details.quantity * products.price) AS total_price
+                                    orders.quantity AS product_quantity,
+                                    (orders.quantity * products.price) AS total_price
                                 FROM orders 
-                                JOIN order_details ON orders.id = order_details.order_id
-                                JOIN products ON order_details.product_id = products.id
+                                JOIN products ON orders.product_id = products.id
                                 WHERE orders.user_id = '$user_id'
                                 ORDER BY orders.created_at DESC");
 
-
+if (!$query) {
+    die(mysqli_error($koneksi));
+    // kesalahan ada di sini oke 
+    // Menampilkan pesan error SQL jika query gagal 
+}
 ?>
-
 
 <section class="section">
     <div class="section-header">
@@ -31,7 +33,6 @@ $orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
     </div>
 
     <div class="section-body">
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -53,7 +54,7 @@ $orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
                                 <tbody>
                                     <?php
                                     $i = 1;
-                                    while ($order = mysqli_fetch_assoc($orders)) {
+                                    while ($order = mysqli_fetch_assoc($query)) {
                                     ?>
                                         <tr>
                                             <td width="5%"><?= $i ?></td>
@@ -106,5 +107,5 @@ $orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
 </section>
 
 <?php
-require_once  __DIR__ . '/layouts/footer.php';
+require_once __DIR__ . '/layouts/footer.php';
 ?>

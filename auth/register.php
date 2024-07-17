@@ -42,8 +42,8 @@ if (isset($_POST['submit'])) {
 
     if (empty($password)) {
         $errors['password'] = 'Password harus diisi.';
-    } elseif (strlen($password) < 6) {
-        $errors['password'] = 'Password minimal 6 karakter.';
+    } elseif (strlen($password) < 2) {
+        $errors['password'] = 'Password minimal 2 karakter.';
     }
 
     if (empty($confirm_password)) {

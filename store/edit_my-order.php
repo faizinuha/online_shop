@@ -10,9 +10,9 @@
     }
 
     if (isset($_GET['id'])) {
-        $order_id = intval($_GET['id']);
+        $id = intval($_GET['id']);
 
-        $orders = mysqli_query($koneksi, "SELECT * FROM orders WHERE id = '$order_id' AND user_id = '$user_id'");
+        $orders = mysqli_query($koneksi, "SELECT * FROM orders WHERE id = '$id' AND user_id = '$user_id'");
         if (mysqli_num_rows($orders) > 0) {
             $order = mysqli_fetch_assoc($orders);
             $product_id = $order['product_id'];
@@ -56,20 +56,20 @@
 
         if ($query) {
 
-            $order_details = mysqli_query($koneksi, "UPDATE order_details SET quantity = '$quantity' WHERE order_id = '$order_id'");
+            $orders = mysqli_query($koneksi, "UPDATE orders SET quantity = '$quantity' WHERE id = '$id'");
 
-            if ($order_details) {
+            if ($orders) {
                 $_SESSION['success'] = 'Order updated successfully!';
                 echo '<script>window.location.href="my_orders.php"</script>';
                 exit();
             } else {
                 $_SESSION['success'] = 'Failed to update order. Please try again.';
-                echo '<script>window.location.href="edit_my-order.php?id=' . $order_id . '"</script>';
+                echo '<script>window.location.href="edit_my-order.php?id=' . $id . '"</script>';
                 exit();
             }
         } else {
             $_SESSION['error'] = 'Failed to update order. Please try again!';
-            echo '<script>window.location.href="edit_my-order.php?id=' . $order_id . '"</script>';
+            echo '<script>window.location.href="edit_my-order.php?id=' . $id . '"</script>';
             exit();
         }
     }

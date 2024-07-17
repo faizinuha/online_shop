@@ -2,7 +2,6 @@
 $title = 'Orders';
 require_once __DIR__ . '/layouts/main.php';
 
-
 $user_id = $_SESSION['user_id'];
 
 if (isset($_GET['id'])) {
@@ -37,15 +36,15 @@ if (isset($_POST['submit'])) {
         echo '<script>window.location.href="order_product.php?id=' . $product_id . '"</script>';
         exit();
     }
-
+    
     $query = mysqli_query($koneksi, "INSERT INTO orders (user_id, product_id, quantity, total_price) VALUES ('$user_id', '$product_id', '$quantity', '$total_price') ");
 
     if ($query) {
-        $order_id = mysqli_insert_id($koneksi);
+        $orders  = mysqli_insert_id($koneksi);
 
-        $order_detail = mysqli_query($koneksi, "INSERT INTO order_details (order_id, product_id, quantity) VALUES ('$order_id', '$product_id', '$quantity') ");
+        $orders = mysqli_query($koneksi, "INSERT INTO orders (user_id , product_id, quantity, total_price) VALUES ('$user_id ', '$product_id', '$quantity','$total_price') ");
 
-        if ($order_detail) {
+        if ($orders) {
             $_SESSION['success'] = 'Order placed successfully!';
             echo '<script>window.location.href="my_orders.php"</script>';
             exit();

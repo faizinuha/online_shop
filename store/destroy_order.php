@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once __DIR__ . '/../config/koneksi.php';
+require_once __DIR__ . '../../config/koneksi.php';
 
 $redirect_page = $_SESSION['role'] == 'admin' ? 'orders.php' : 'my_orders.php';
 
@@ -10,17 +10,16 @@ if (isset($_GET['id'])) {
     mysqli_begin_transaction($koneksi);
 
     try {
-        $order_details = mysqli_query($koneksi, "DELETE FROM order_details WHERE order_id = '$order_id'");
+        // Hapus dari tabel 'orders' berdasarkan 'order_id'
+        $query1 = mysqli_query($koneksi, "DELETE FROM orders WHERE id = '$order_id'");
 
-        if (!$order_details) {
-            throw new Exception('Gagal menghapus dari order_details');
+        if (!$query1) {
+            throw new Exception('Gagal menghapus pesanan.');
         }
 
-        $orders = mysqli_query($koneksi, "DELETE FROM orders WHERE id = '$order_id'");
-
-        if (!$orders) {
-            throw new Exception('Gagal menghapus dari orders');
-        }
+        // Jika ada referensi ke 'order_details', hapus juga di sini jika diperlukan
+        // jika ada order_details tambahkan jika ada
+        // Contoh: mysqli_query($koneksi, "DELETE FROM order_details WHERE order_id = '$order_id'");
 
         mysqli_commit($koneksi);
 
@@ -30,12 +29,9 @@ if (isset($_GET['id'])) {
         mysqli_rollback($koneksi);
         $_SESSION['error'] = $e->getMessage();
         echo "<script>window.location.href='$redirect_page'</script>";
-
     }
-    
-    
 } else {
-    $_SESSION['error'] = 'Order Tidak ditemukan.';
-    // echo "<script>window.location.href='$redirect_page'</script>";
-
-}   
+    $_SESSION['error'] = 'Order tidak ditemukan.';
+    echo "<script>window.location.href='$redirect_page'</script>";
+}
+?>
