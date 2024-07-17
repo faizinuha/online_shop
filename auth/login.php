@@ -96,6 +96,9 @@ if (isset($_POST['submit'])) {
                                 <a class="small" href="register.php">Create an Account!</a>
                             </div>
                             <div class="text-center">
+                                <a class="small" href="Lupa_password.php">Forgot Account!</a>
+                            </div>
+                            <div class="text-center">
                                 <a class="small" href="../index.php">Back to Home!</a>
                             </div>
                         </div>
