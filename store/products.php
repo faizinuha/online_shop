@@ -84,7 +84,7 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
 
                                     <a href="category.php?id=<?= $product['category_id'] ?>" class="btn btn-primary"><i class="fas fa-eye"></i></a>
 
-                                    
+
                                 <?php
                                 endif;
                                 ?>
