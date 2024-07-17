@@ -81,7 +81,7 @@ $orders = mysqli_query($koneksi, "SELECT orders.id AS order_id,
                                                             <i class="fas fa-fw fa-pen"></i>
                                                         </a>
 
-                                                        <a class="btn btn-danger text-white" data-confirm="Realy?|Do you want to cancelled?" data-confirm-yes="window.location.href='destroy_order.php?id=<?= $order['order_id']?>'">
+                                                        <a class="btn btn-danger text-white" data-confirm="Realy?|Do you want to cancelled?" data-confirm-yes="window.location.href='destroy_order.php?id=<?= $order['order_id'] ?>'">
                                                             <i class="fas fa-fw fa-times"></i>
                                                         </a>
 

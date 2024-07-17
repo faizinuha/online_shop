@@ -28,15 +28,15 @@ if (isset($_SESSION['error'])) {
     <title><?= $title ?></title>
 
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="../dashboard/assets/modules/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../dashboard/assets/modules/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../store/assets/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../store/assets/modules/fontawesome/css/all.min.css">
 
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="../dashboard/assets/modules/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="../../store/assets/modules/jquery-selectric/selectric.css">
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="../dashboard/assets/css/style.css">
-    <link rel="stylesheet" href="../dashboard/assets/css/components.css">
+    <link rel="stylesheet" href="../../store/assets/css/style.css">
+    <link rel="stylesheet" href="../../store/assets/css/components.css">
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
