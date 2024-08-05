@@ -93,9 +93,12 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
                             if (isset($_SESSION['role']) && $_SESSION['role'] === 'customer' && $product['stock'] === 'available') :
                             ?>
                                 <div class="row ml-1" style="display: flex; gap: 13px">
-                                    <a href="order_product.php?id=<?= $product['id'] ?>" class="btn btn-primary ">
+                                    <a href="order_product.php?id=<?= $product['id'] ?>" class="btn btn-primary">
                                         <i class="fas fa-shopping-cart"></i> Order
                                     </a>
+                                    <button  type="button" class="btn btn-danger" id="report">
+                                        <i class="fas fa-exclamation-triangle"></i> Report
+                                    </button>
                                 </div>
                             <?php
                             endif;
@@ -107,12 +110,31 @@ $products = mysqli_query($koneksi, "SELECT products.*, categories.name AS catego
             endforeach;
             ?>
         </div>
+        <script>
+            document.querySelectorAll('.btn-danger').forEach(button => {
+                button.addEventListener('click',function(event){
+                    event.preventDefault();
+                    alert('Loading');
+                    setTimeout(function(){
+                        alert('Report has been sent successfully.');
+                    },2000)
+                })
+            })
+            // document.getElementById('report').addEventListener('click', function(event) {
+            //     event.preventDefault();
+            //     alert('Loading');
+            //     setTimeout(function() {
+            //         alert('Report has been sent successfully.');
+            //         // Tambahkan permintaan AJAX di sini untuk mengirim laporan ke server
+            //     }, 2000); // Set timeout to 2 seconds (2000 milliseconds)
+            // });
+        </script>
         <div class="row d-flex justify-content-end">
             <nav aria-label="...">
                 <ul class="pagination">
                     <?php if ($page > 1) : ?>
                         <li class="page-item">
-                            <a class="page-link" href="products.php?page=<?= $page - 1 ?>">Previous</a>
+                            <a class="page-link" href="products.php?page=<?= $page  - 1 ?>">Previous</a>
                         </li>
                     <?php else : ?>
                         <li class="page-item disabled">

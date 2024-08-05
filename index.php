@@ -13,9 +13,7 @@
 <body>
 
   <div class="site-wrapper">
-
     <div class="site-wrapper-inner">
-
       <div class="container">
 
         <div class="masthead clearfix">
